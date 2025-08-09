@@ -1,0 +1,49 @@
+/* Ambient background */
+.app-bg{
+  position:fixed; inset:0; overflow:hidden; z-index:-1;
+  background: radial-gradient(150% 100% at 0% 0%, #eaf1ff 0%, transparent 60%),
+              radial-gradient(120% 80% at 100% 0%, #f7ecff 0%, transparent 60%),
+              linear-gradient(180deg, rgba(255,255,255,.6), rgba(255,255,255,0));
+}
+@media (prefers-color-scheme: dark){
+  .app-bg{
+    background: radial-gradient(150% 100% at 0% 0%, #0c1222 0%, transparent 60%),
+                radial-gradient(120% 80% at 100% 0%, #1a0f24 0%, transparent 60%),
+                linear-gradient(180deg, rgba(0,0,0,.2), rgba(0,0,0,0));
+  }
+}
+
+.container{ max-width:980px; margin:0 auto; padding:32px 20px; }
+.header{ display:flex; align-items:center; gap:12px; margin-bottom:24px }
+.header .brand{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:20px }
+.header img{ width:28px; height:28px }
+
+.mode-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; }
+.mode-card{
+  border-radius:16px; padding:20px; border:1px solid var(--line);
+  background:linear-gradient(180deg, rgba(255,255,255,.7), rgba(255,255,255,.5));
+  cursor:pointer; transition:transform .15s var(--ease), box-shadow .2s var(--ease);
+  box-shadow:var(--shadow);
+}
+.mode-card:hover{ transform:translateY(-2px) }
+.mode-card h3{ margin:0 0 8px 0 }
+.mode-card p{ margin:0; opacity:.7 }
+
+.session{ display:grid; gap:20px; justify-items:center; text-align:center; padding-top:8px; }
+.timer-ring{ width:260px; height:260px; position:relative; }
+.timer-ring svg{ width:100%; height:100% }
+.timer-label{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  font-size:32px; font-weight:700;
+}
+.controls{ display:flex; gap:12px; align-items:center; justify-content:center }
+.control{ padding:10px 14px; border-radius:12px; border:1px solid var(--line); background:rgba(255,255,255,.6); cursor:pointer }
+@media (prefers-color-scheme: dark){ .control{ background:rgba(20,22,28,.6) } }
+
+.settings{ display:grid; gap:12px }
+.settings .row{
+  display:flex; gap:12px; align-items:center; justify-content:space-between;
+  border:1px solid var(--line); border-radius:12px; padding:12px 14px;
+}
+select, input[type=range]{ width:100% }
+.footer{ opacity:.6; font-size:12px; text-align:center; margin-top:24px }
