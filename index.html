@@ -11,34 +11,29 @@
   <div class="app-bg" aria-hidden="true"></div>
 
   <div class="container">
-    <!-- Header matches CSS: .header, .brand, img sized via CSS -->
+    <!-- Header matches CSS; explicit width/height so the SVG never blows up -->
     <header class="header">
-      <img src="assets/icons/app-icon.svg" alt="App icon" />
+      <img src="assets/icons/app-icon.svg?v=2" alt="App icon" width="28" height="28" />
       <div class="brand">15-Minute Reset</div>
     </header>
 
-    <!-- Mode picker matches CSS: .mode-grid / .mode-card -->
     <main>
       <h2>Pick a mode</h2>
       <div class="mode-grid">
-        <div class="mode-card" data-mode="calm">
-          <h3>Calm</h3>
-          <p>Breathing + gentle sound</p>
-        </div>
-        <div class="mode-card" data-mode="focus">
-          <h3>Focus</h3>
-          <p>Pomodoro + lo-fi loop</p>
-        </div>
-        <div class="mode-card" data-mode="energize">
-          <h3>Energize</h3>
-          <p>Box breathing + cue bells</p>
-        </div>
+        <button class="mode-card" data-mode="calm" aria-label="Calm">
+          <h3>Calm</h3><p>Breathing + gentle sound</p>
+        </button>
+        <button class="mode-card" data-mode="focus" aria-label="Focus">
+          <h3>Focus</h3><p>Pomodoro + lo-fi loop</p>
+        </button>
+        <button class="mode-card" data-mode="energize" aria-label="Energize">
+          <h3>Energize</h3><p>Box breathing + cue bells</p>
+        </button>
       </div>
     </main>
 
-    <!-- Session area matches CSS: .session, .timer-ring, .timer-label, .controls -->
-    <section class="session hidden">
-      <h2>Session</h2>
+    <section class="session hidden" aria-labelledby="session-title">
+      <h2 id="session-title">Session</h2>
       <div class="timer-ring">
         <svg viewBox="0 0 120 120" aria-hidden="true">
           <circle cx="60" cy="60" r="45" stroke="var(--line)" stroke-width="8" fill="none"/>
@@ -56,8 +51,8 @@
       </div>
     </section>
 
-    <section>
-      <h2>Settings</h2>
+    <section aria-labelledby="settings-title">
+      <h2 id="settings-title">Settings</h2>
       <div class="settings">
         <div class="row">
           <label for="sessionLength">Session length</label>
@@ -74,7 +69,6 @@
     <footer class="footer">© 2025 15-Minute Reset</footer>
   </div>
 
-  <!-- JS controller -->
   <script src="scripts/app.js"></script>
 </body>
 </html>
