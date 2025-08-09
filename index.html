@@ -8,17 +8,15 @@
   <link rel="stylesheet" href="styles/app.css" />
 </head>
 <body>
-  <div class="app-bg"></div>
+  <header>
+    <div class="logo">
+      <img src="assets/icons/app-icon.svg" alt="15-Minute Reset logo" />
+      <h1>15-Minute Reset</h1>
+    </div>
+  </header>
 
-  <div class="container">
-    <!-- Header -->
-    <header class="header">
-      <img src="assets/icons/app-icon.svg" alt="App Icon" />
-      <div class="brand">15-Minute Reset</div>
-    </header>
-
-    <!-- Mode Selection -->
-    <section>
+  <main>
+    <section class="mode-picker">
       <h2>Pick a mode</h2>
       <div class="mode-grid">
         <div class="mode-card" data-mode="calm">
@@ -36,107 +34,36 @@
       </div>
     </section>
 
-    <!-- Session Area -->
     <section class="session hidden">
-      <div class="timer-ring">
-        <svg viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="45" stroke="var(--line)" stroke-width="4" fill="none"/>
-          <circle class="progress" cx="50" cy="50" r="45" stroke="var(--accent)" stroke-width="4" fill="none" stroke-dasharray="282.743" stroke-dashoffset="0" />
-        </svg>
-        <div class="timer-label">15:00</div>
-      </div>
-      <div class="controls">
-        <div class="control" id="startBtn">▶ Start</div>
-        <div class="control" id="pauseBtn">⏸ Pause</div>
-        <div class="control" id="resetBtn">⏹ Reset</div>
-      </div>
-    </section>
-
-    <!-- Settings -->
-    <section>
       <h2>Settings</h2>
-      <div class="settings">
-        <div class="row">
-          <label>Session length</label>
-          <select id="sessionLength">
-            <option value="5">5 minutes</option>
-            <option value="10">10 minutes</option>
-            <option value="15" selected>15 minutes</option>
-            <option value="20">20 minutes</option>
-          </select>
-        </div>
-        <div class="row">
-          <label>Sound pack</label>
-          <select id="soundPack">
-            <option value="none" selected>No background</option>
-            <option value="calm">Gentle calm</option>
-            <option value="focus">Lo-fi beats</option>
-            <option value="energize">Cue bells</option>
-          </select>
-        </div>
-        <div class="row">
-          <label for="volume">Volume</label>
-          <input type="range" id="volume" min="0" max="1" step="0.05" value="0.5" />
-        </div>
+      <label>
+        Session length
+        <select id="sessionLength">
+          <option value="5">5 minutes</option>
+          <option value="10">10 minutes</option>
+          <option value="15" selected>15 minutes</option>
+          <option value="20">20 minutes</option>
+        </select>
+      </label>
+
+      <div class="timer-display">
+        <svg width="120" height="120">
+          <circle cx="60" cy="60" r="45" stroke="#eee" stroke-width="8" fill="none" />
+          <circle class="progress" cx="60" cy="60" r="45" stroke="#4a90e2" stroke-width="8" fill="none"
+                  stroke-linecap="round"
+                  style="stroke-dasharray: 282.743, 282.743; stroke-dashoffset: 0;" />
+        </svg>
+        <span class="timer-label">15:00</span>
+      </div>
+
+      <div class="controls">
+        <button id="startBtn">Start</button>
+        <button id="pauseBtn">Pause</button>
+        <button id="resetBtn">Reset</button>
       </div>
     </section>
+  </main>
 
-    <footer class="footer">
-      &copy; 2025 15-Minute Reset — Built for focus, calm, and energy.
-    </footer>
-  </div>
-
-  <script>
-    const modeCards = document.querySelectorAll('.mode-card');
-    const sessionSection = document.querySelector('.session');
-    const timerLabel = document.querySelector('.timer-label');
-    const progressCircle = document.querySelector('.progress');
-    let timer, totalSeconds, remainingSeconds;
-
-    function updateTimerDisplay() {
-      const minutes = String(Math.floor(remainingSeconds / 60)).padStart(2, '0');
-      const seconds = String(remainingSeconds % 60).padStart(2, '0');
-      timerLabel.textContent = `${minutes}:${seconds}`;
-      const progress = remainingSeconds / totalSeconds;
-      progressCircle.style.strokeDashoffset = 282.743 * (1 - progress);
-    }
-
-    modeCards.forEach(card => {
-      card.addEventListener('click', () => {
-        document.querySelector('.mode-grid').classList.add('hidden');
-        sessionSection.classList.remove('hidden');
-        const selectedLength = parseInt(document.getElementById('sessionLength').value, 10);
-        totalSeconds = selectedLength * 60;
-        remainingSeconds = totalSeconds;
-        updateTimerDisplay();
-      });
-    });
-
-    document.getElementById('startBtn').addEventListener('click', () => {
-      clearInterval(timer);
-      timer = setInterval(() => {
-        if (remainingSeconds > 0) {
-          remainingSeconds--;
-          updateTimerDisplay();
-        } else {
-          clearInterval(timer);
-        }
-      }, 1000);
-    });
-
-    document.getElementById('pauseBtn').addEventListener('click', () => clearInterval(timer));
-
-    document.getElementById('resetBtn').addEventListener('click', () => {
-      clearInterval(timer);
-      remainingSeconds = totalSeconds;
-      updateTimerDisplay();
-    });
-
-    document.getElementById('sessionLength').addEventListener('change', (e) => {
-      totalSeconds = parseInt(e.target.value, 10) * 60;
-      remainingSeconds = totalSeconds;
-      updateTimerDisplay();
-    });
-  </script>
+  <script src="scripts/app.js"></script>
 </body>
 </html>
