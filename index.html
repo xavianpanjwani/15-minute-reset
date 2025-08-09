@@ -2,21 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>15-Minute Reset</title>
   <link rel="stylesheet" href="styles/design-tokens.css" />
   <link rel="stylesheet" href="styles/app.css" />
 </head>
 <body>
-  <header>
-    <div class="logo">
-      <img src="assets/icons/app-icon.svg" alt="15-Minute Reset logo" />
-      <h1>15-Minute Reset</h1>
-    </div>
-  </header>
+  <div class="app-bg" aria-hidden="true"></div>
 
-  <main>
-    <section class="mode-picker">
+  <div class="container">
+    <!-- Header matches CSS: .header, .brand, img sized via CSS -->
+    <header class="header">
+      <img src="assets/icons/app-icon.svg" alt="App icon" />
+      <div class="brand">15-Minute Reset</div>
+    </header>
+
+    <!-- Mode picker matches CSS: .mode-grid / .mode-card -->
+    <main>
       <h2>Pick a mode</h2>
       <div class="mode-grid">
         <div class="mode-card" data-mode="calm">
@@ -32,38 +34,47 @@
           <p>Box breathing + cue bells</p>
         </div>
       </div>
-    </section>
+    </main>
 
+    <!-- Session area matches CSS: .session, .timer-ring, .timer-label, .controls -->
     <section class="session hidden">
-      <h2>Settings</h2>
-      <label>
-        Session length
-        <select id="sessionLength">
-          <option value="5">5 minutes</option>
-          <option value="10">10 minutes</option>
-          <option value="15" selected>15 minutes</option>
-          <option value="20">20 minutes</option>
-        </select>
-      </label>
-
-      <div class="timer-display">
-        <svg width="120" height="120">
-          <circle cx="60" cy="60" r="45" stroke="#eee" stroke-width="8" fill="none" />
-          <circle class="progress" cx="60" cy="60" r="45" stroke="#4a90e2" stroke-width="8" fill="none"
+      <h2>Session</h2>
+      <div class="timer-ring">
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <circle cx="60" cy="60" r="45" stroke="var(--line)" stroke-width="8" fill="none"/>
+          <circle class="progress" cx="60" cy="60" r="45" stroke="var(--accent)" stroke-width="8"
                   stroke-linecap="round"
-                  style="stroke-dasharray: 282.743, 282.743; stroke-dashoffset: 0;" />
+                  style="stroke-dasharray: 282.743; stroke-dashoffset: 0;" fill="none"/>
         </svg>
-        <span class="timer-label">15:00</span>
+        <div class="timer-label">15:00</div>
       </div>
 
       <div class="controls">
-        <button id="startBtn">Start</button>
-        <button id="pauseBtn">Pause</button>
-        <button id="resetBtn">Reset</button>
+        <button class="control" id="startBtn">Start</button>
+        <button class="control" id="pauseBtn">Pause</button>
+        <button class="control" id="resetBtn">Reset</button>
       </div>
     </section>
-  </main>
 
+    <section>
+      <h2>Settings</h2>
+      <div class="settings">
+        <div class="row">
+          <label for="sessionLength">Session length</label>
+          <select id="sessionLength">
+            <option value="5">5 minutes</option>
+            <option value="10">10 minutes</option>
+            <option value="15" selected>15 minutes</option>
+            <option value="20">20 minutes</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">© 2025 15-Minute Reset</footer>
+  </div>
+
+  <!-- JS controller -->
   <script src="scripts/app.js"></script>
 </body>
 </html>
