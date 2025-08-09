@@ -1,120 +1,142 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>15-Minute Reset</title>
-  <meta name="description" content="ADHD-friendly micro-break app: Calm, Focus, Energize." />
-  <link rel="manifest" href="manifest.webmanifest" />
-  <meta name="theme-color" content="#0E0F14" />
-  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="styles/design-tokens.css" />
   <link rel="stylesheet" href="styles/app.css" />
 </head>
 <body>
-  <div class="app-bg" aria-hidden="true"></div>
+  <div class="app-bg"></div>
+
   <div class="container">
+    <!-- Header -->
     <header class="header">
-      <img src="assets/icons/app-icon.svg" alt="15-Minute Reset icon" width="28" height="28" />
+      <img src="assets/icons/app-icon.svg" alt="App Icon" />
       <div class="brand">15-Minute Reset</div>
-      <button id="installBtn" class="button" style="margin-left:auto" aria-label="Install app" disabled>Install</button>
     </header>
 
-    <main id="view-picker" class="card" role="region" aria-labelledby="modes-title">
-      <h2 id="modes-title" style="margin-top:0">Pick a mode</h2>
+    <!-- Mode Selection -->
+    <section>
+      <h2>Pick a mode</h2>
       <div class="mode-grid">
-        <button class="mode-card" data-mode="calm" aria-describedby="calm-desc">
+        <div class="mode-card" data-mode="calm">
           <h3>Calm</h3>
-          <p id="calm-desc">Breathing + gentle sound</p>
-        </button>
-        <button class="mode-card" data-mode="focus" aria-describedby="focus-desc">
+          <p>Breathing + gentle sound</p>
+        </div>
+        <div class="mode-card" data-mode="focus">
           <h3>Focus</h3>
-          <p id="focus-desc">Pomodoro + lo-fi loop</p>
-        </button>
-        <button class="mode-card" data-mode="energize" aria-describedby="energize-desc">
+          <p>Pomodoro + lo-fi loop</p>
+        </div>
+        <div class="mode-card" data-mode="energize">
           <h3>Energize</h3>
-          <p id="energize-desc">Box breathing + cue bells</p>
-        </button>
-      </div>
-    </main>
-
-    <section id="view-session" class="card hidden" role="region" aria-labelledby="session-title">
-      <h2 id="session-title" style="margin-top:0">Session</h2>
-      <div class="session">
-        <div class="timer-ring" aria-live="polite">
-          <div class="timer-label" id="timeLabel">15:00</div>
-          <svg viewBox="0 0 120 120" aria-hidden="true">
-            <circle cx="60" cy="60" r="54" fill="none" stroke="var(--line)" stroke-width="8"/>
-            <circle id="progress" cx="60" cy="60" r="54" fill="none" stroke="url(#grad)" stroke-width="8"
-              stroke-linecap="round" stroke-dasharray="339.292" stroke-dashoffset="0"
-              transform="rotate(-90 60 60)"/>
-            <defs>
-              <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="var(--accent)"/>
-                <stop offset="1" stop-color="var(--accent-2)"/>
-              </linearGradient>
-            </defs>
-          </svg>
-        </div>
-        <div id="stepText" aria-live="polite">Press play to begin.</div>
-        <div class="controls">
-          <button class="control" id="playPauseBtn" aria-label="Play"><span id="playPauseLabel">Play</span></button>
-          <button class="control" id="skipBtn" aria-label="Skip step">Skip</button>
-          <button class="control" id="endBtn" aria-label="End session">End</button>
+          <p>Box breathing + cue bells</p>
         </div>
       </div>
     </section>
 
-    <section id="view-finish" class="card hidden" role="region" aria-labelledby="finish-title">
-      <h2 id="finish-title" style="margin-top:0">Nice reset</h2>
-      <p>How do you feel?</p>
-      <label class="visually-hidden" for="reflect">Reflection</label>
-      <textarea id="reflect" rows="3" style="width:100%;border-radius:12px;border:1px solid var(--line);padding:12px"></textarea>
-      <div style="display:flex;gap:12px;margin-top:12px">
-        <button class="button" id="repeatBtn">Repeat</button>
-        <button class="control" id="homeBtn">Home</button>
+    <!-- Session Area -->
+    <section class="session hidden">
+      <div class="timer-ring">
+        <svg viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="45" stroke="var(--line)" stroke-width="4" fill="none"/>
+          <circle class="progress" cx="50" cy="50" r="45" stroke="var(--accent)" stroke-width="4" fill="none" stroke-dasharray="282.743" stroke-dashoffset="0" />
+        </svg>
+        <div class="timer-label">15:00</div>
+      </div>
+      <div class="controls">
+        <div class="control" id="startBtn">▶ Start</div>
+        <div class="control" id="pauseBtn">⏸ Pause</div>
+        <div class="control" id="resetBtn">⏹ Reset</div>
       </div>
     </section>
 
-    <section id="view-settings" class="card" style="margin-top:16px" role="region" aria-labelledby="settings-title">
-      <h2 id="settings-title" style="margin-top:0">Settings</h2>
+    <!-- Settings -->
+    <section>
+      <h2>Settings</h2>
       <div class="settings">
         <div class="row">
-          <label for="length">Session length</label>
-          <select id="length">
-            <option value="300">5 minutes</option>
-            <option value="600">10 minutes</option>
-            <option value="900" selected>15 minutes</option>
-            <option value="1200">20 minutes</option>
+          <label>Session length</label>
+          <select id="sessionLength">
+            <option value="5">5 minutes</option>
+            <option value="10">10 minutes</option>
+            <option value="15" selected>15 minutes</option>
+            <option value="20">20 minutes</option>
           </select>
         </div>
         <div class="row">
-          <label for="sound">Sound pack</label>
-          <select id="sound">
-            <option value="lofi">Lo-fi</option>
-            <option value="nature">Nature</option>
-            <option value="white">White noise</option>
+          <label>Sound pack</label>
+          <select id="soundPack">
             <option value="none" selected>No background</option>
+            <option value="calm">Gentle calm</option>
+            <option value="focus">Lo-fi beats</option>
+            <option value="energize">Cue bells</option>
           </select>
         </div>
         <div class="row">
           <label for="volume">Volume</label>
-          <input id="volume" type="range" min="0" max="1" step="0.01" value="0.4"/>
-        </div>
-        <div class="row">
-          <label for="reduced">Reduced motion</label>
-          <input id="reduced" type="checkbox" />
+          <input type="range" id="volume" min="0" max="1" step="0.05" value="0.5" />
         </div>
       </div>
     </section>
 
-    <footer class="footer">Installable PWA • Offline-first • © 2025 15-Minute Reset</footer>
+    <footer class="footer">
+      &copy; 2025 15-Minute Reset — Built for focus, calm, and energy.
+    </footer>
   </div>
 
-  <script src="scripts/state.js"></script>
-  <script src="scripts/audio.js"></script>
-  <script src="scripts/timer.js"></script>
-  <script src="scripts/ui.js"></script>
-  <script src="scripts/app.js"></script>
+  <script>
+    const modeCards = document.querySelectorAll('.mode-card');
+    const sessionSection = document.querySelector('.session');
+    const timerLabel = document.querySelector('.timer-label');
+    const progressCircle = document.querySelector('.progress');
+    let timer, totalSeconds, remainingSeconds;
+
+    function updateTimerDisplay() {
+      const minutes = String(Math.floor(remainingSeconds / 60)).padStart(2, '0');
+      const seconds = String(remainingSeconds % 60).padStart(2, '0');
+      timerLabel.textContent = `${minutes}:${seconds}`;
+      const progress = remainingSeconds / totalSeconds;
+      progressCircle.style.strokeDashoffset = 282.743 * (1 - progress);
+    }
+
+    modeCards.forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelector('.mode-grid').classList.add('hidden');
+        sessionSection.classList.remove('hidden');
+        const selectedLength = parseInt(document.getElementById('sessionLength').value, 10);
+        totalSeconds = selectedLength * 60;
+        remainingSeconds = totalSeconds;
+        updateTimerDisplay();
+      });
+    });
+
+    document.getElementById('startBtn').addEventListener('click', () => {
+      clearInterval(timer);
+      timer = setInterval(() => {
+        if (remainingSeconds > 0) {
+          remainingSeconds--;
+          updateTimerDisplay();
+        } else {
+          clearInterval(timer);
+        }
+      }, 1000);
+    });
+
+    document.getElementById('pauseBtn').addEventListener('click', () => clearInterval(timer));
+
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      clearInterval(timer);
+      remainingSeconds = totalSeconds;
+      updateTimerDisplay();
+    });
+
+    document.getElementById('sessionLength').addEventListener('change', (e) => {
+      totalSeconds = parseInt(e.target.value, 10) * 60;
+      remainingSeconds = totalSeconds;
+      updateTimerDisplay();
+    });
+  </script>
 </body>
 </html>
